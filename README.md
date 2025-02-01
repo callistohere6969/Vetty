@@ -18,3 +18,6 @@ GROUP BY
     store_id
 HAVING
     COUNT(*) >= 5;
+
+![Query Result]([https://raw.githubusercontent.com/your-username/your-repo/main/query_result.png](https://github.com/callistohere6969/Vetty/commit/d5e039e09d0be38d2f6d5aa96bff57a209cbaf84))
+
