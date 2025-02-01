@@ -85,6 +85,7 @@ ORDER BY
     order_count DESC
 LIMIT 1;
 ```
+> Data provided is not that efficient that we can make more observations because there is very few items the transition table that matches the item ID of the item table
 
 6. Create a flag in the transaction items table indicating whether the refund can be processed or
 not. The condition for a refund to be processed is that it has to happen within 72 of Purchase
