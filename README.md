@@ -1,6 +1,6 @@
 # Vetty Assingment Questions
 
-2. How many stores receive at least 5 orders/transactions in October 2020?
+###2. How many stores receive at least 5 orders/transactions in October 2020?
 ## SQL Query: Order Count Per Store for October 2020
 
 The following query retrieves the number of orders (`order_count`) per `store_id` from the `transactions` table within October 2020. It only includes stores with at least 5 orders.
@@ -19,7 +19,7 @@ GROUP BY
 HAVING
     COUNT(*) >= 5;
 
-3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
+###3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
 
 The following query calculates the shortest interval (in minutes) between the `purchase_time` and `refund_item` for each store where a refund occurred.
 
