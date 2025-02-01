@@ -19,6 +19,19 @@ GROUP BY
 HAVING
     COUNT(*) >= 5;
 
-![image](https://github.com/user-attachments/assets/d312e72b-70a1-4fd2-8dc9-3a121c8dd013)
+3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
+
+The following query calculates the shortest interval (in minutes) between the `purchase_time` and `refund_item` for each store where a refund occurred.
+
+```sql
+SELECT
+    store_id,
+    MIN(TIMESTAMPDIFF(MINUTE, purchase_time, refund_item)) AS shortest_interval_in_min
+FROM
+    transactions
+WHERE
+    refund_item IS NOT NULL
+GROUP BY
+    store_id;
 
 
