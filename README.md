@@ -18,6 +18,7 @@ GROUP BY
     store_id
 HAVING
     COUNT(*) >= 5;
+```
 
 ###3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
 
@@ -33,5 +34,5 @@ WHERE
     refund_item IS NOT NULL
 GROUP BY
     store_id;
-
+```
 
