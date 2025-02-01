@@ -1,5 +1,20 @@
 # Vetty Assingment Questions
 
+1. What is the count of purchases per month (excluding refunded purchases)?
+```sql
+SELECT
+    DATE_FORMAT(purchase_time, '%Y-%m') AS purchase_month,
+    COUNT(*) AS purchase_count
+FROM
+    transactions
+WHERE
+    refund_item IS NULL -- Exclude refunded purchases
+GROUP BY
+    DATE_FORMAT(purchase_time, '%Y-%m')
+ORDER BY
+    purchase_month ;
+```
+
 2. How many stores receive at least 5 orders/transactions in October 2020?
  
 
