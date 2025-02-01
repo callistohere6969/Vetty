@@ -19,6 +19,6 @@ GROUP BY
 HAVING
     COUNT(*) >= 5;
 
-### Query Result:
-![Query Result](./image.png)
+![image](https://github.com/user-attachments/assets/d312e72b-70a1-4fd2-8dc9-3a121c8dd013)
+
 
