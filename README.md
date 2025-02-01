@@ -20,4 +20,5 @@ HAVING
     COUNT(*) >= 5;
 
 ### Query Result:
-![Query Result](image.png)
+![Query Result](./image.png)
+
