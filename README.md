@@ -1,4 +1,7 @@
 # Vetty Assingment Questions
+> The datatype of column 'refund_item' is considered as timestamp for the purpose of analysis
+
+
 
 1. What is the count of purchases per month (excluding refunded purchases)?
 ```sql
@@ -8,9 +11,9 @@ SELECT
 FROM
     transactions
 WHERE
-    refund_item IS NULL -- Exclude refunded purchases
+    refund_item IS NULL --Excluding refunded purchases
 GROUP BY
-    DATE_FORMAT(purchase_time, '%Y-%m')
+    DATE_FORMAT(purchase_time, '%Y-%m') --Per Month
 ORDER BY
     purchase_month ;
 ```
@@ -28,11 +31,11 @@ FROM
     transactions
 WHERE
     purchase_time >= '2020-10-01 00:00:00'
-    AND purchase_time < '2020-11-01 00:00:00'
+    AND purchase_time < '2020-11-01 00:00:00' --Within the month of October
 GROUP BY
     store_id
 HAVING
-    COUNT(*) >= 5;
+    COUNT(*) >= 5; --atleast 5(the value can be changed according to the minimum number of order count required)
 ```
 
 3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
@@ -46,7 +49,7 @@ SELECT
 FROM
     transactions
 WHERE
-    refund_item IS NOT NULL
+    refund_item IS NOT NULL --considering only the items that has been refunded
 GROUP BY
     store_id;
 ```
@@ -69,12 +72,13 @@ INNER JOIN (
         transactions
     GROUP BY
         store_id
-) AS first_orders 
+) AS first_orders --this table contain the first order of each store
 ON
     t.store_id = first_orders.store_id
     AND t.purchase_time = first_orders.first_time;
-
+-- joined both the tables (our original table and the 'first_time' table) on the basis of store_id and purchase_time
 ```
+
 5. What is the most popular item name that buyers order on their first purchase?
 ```sql
 SELECT
@@ -85,6 +89,7 @@ FROM
 INNER JOIN items i
     ON t.store_id = i.store_id AND t.item_id = i.item_id
 WHERE
+--checking if the buyer exist in the follwing table
     (t.buyer_id, t.purchase_time) IN (
         SELECT
             buyer_id,
@@ -93,9 +98,10 @@ WHERE
             transactions
         GROUP BY
             buyer_id
+--this table contains the first purchase time of each buyer
     )
 GROUP BY
-    i.item_name
+    i.item_name 
 ORDER BY
     order_count DESC
 LIMIT 1;
@@ -115,6 +121,7 @@ SELECT
     END AS refund_processable
 FROM
     transactions;
+--checking if the difference in purchase_time and refund_time is less than or equal to 72hours than it would be considered as processed refund else it wouldnt be 
 ```
 > if we want to add the column permanently in the table
 
@@ -131,7 +138,7 @@ SET refund_processable =
         ELSE 'No'
     END;
 ```
-> we can also use ENUM as a datatype
+> we can also use ENUM ('Yes','No')as a datatype
 
 7. Create a rank by buyer_id column in the transaction items table and filter for only the second
 purchase per buyer.
@@ -142,7 +149,7 @@ SELECT
 FROM
     (SELECT
         *,
-        RANK() OVER (PARTITION BY buyer_id ORDER BY purchase_time ASC) AS purchase_rank
+        RANK() OVER (PARTITION BY buyer_id ORDER BY purchase_time ASC) AS purchase_rank --rank function is used to give ranking on the basis of some conditions provided
     FROM
         transactions) t
 WHERE
@@ -165,6 +172,7 @@ FROM
         transactions) t
 WHERE
     t.purchase_rank = 2;
+--logic is almost similar as 7th 
 ```
 
 
