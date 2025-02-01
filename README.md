@@ -98,4 +98,19 @@ SELECT
 FROM
     transactions;
 ```
+if we want to add the column permanently in the table
+
+```sql
+-- Add the refund_processable column
+ALTER TABLE transactions
+ADD COLUMN refund_processable CHAR(3);
+
+-- Update the column based on the condition
+UPDATE transactions
+SET refund_processable = 
+    CASE
+        WHEN refund_item IS NOT NULL AND TIMESTAMPDIFF(HOUR, purchase_time, refund_item) <= 72 THEN 'Yes'
+        ELSE 'No'
+    END;
+```
 
