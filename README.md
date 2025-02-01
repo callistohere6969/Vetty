@@ -3,7 +3,7 @@
 2. How many stores receive at least 5 orders/transactions in October 2020?
  
 
-The following query retrieves the number of orders (`order_count`) per `store_id` from the `transactions` table within October 2020. It only includes stores with at least 5 orders.
+> The following query retrieves the number of orders (`order_count`) per `store_id` from the `transactions` table within October 2020. It only includes stores with at least 5 orders.
 
 ```sql
 SELECT
@@ -22,7 +22,7 @@ HAVING
 
 3. For each store, what is the shortest interval (in minutes) from purchase to refund time?
 
-The following query calculates the shortest interval (in minutes) between the `purchase_time` and `refund_item` for each store where a refund occurred.
+> The following query calculates the shortest interval (in minutes) between the `purchase_time` and `refund_item` for each store where a refund occurred.
 
 ```sql
 SELECT
@@ -35,6 +35,8 @@ WHERE
 GROUP BY
     store_id;
 ```
+> Result is provided only on the basis of the items that has been refunded
+
 4. What is the gross_transaction_value of every store’s first order?
 
 ```sql
@@ -98,7 +100,7 @@ SELECT
 FROM
     transactions;
 ```
-if we want to add the column permanently in the table
+> if we want to add the column permanently in the table
 
 ```sql
 -- Add the refund_processable column
@@ -113,4 +115,5 @@ SET refund_processable =
         ELSE 'No'
     END;
 ```
+> we can also use ENUM as a datatype
 
