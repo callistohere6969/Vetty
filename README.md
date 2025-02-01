@@ -117,3 +117,38 @@ SET refund_processable =
 ```
 > we can also use ENUM as a datatype
 
+7. Create a rank by buyer_id column in the transaction items table and filter for only the second
+purchase per buyer.
+
+```sql
+SELECT
+    *
+FROM
+    (SELECT
+        *,
+        RANK() OVER (PARTITION BY buyer_id ORDER BY purchase_time ASC) AS purchase_rank
+    FROM
+        transactions) t
+WHERE
+    t.purchase_rank = 2;
+```
+
+8. How will you find the second transaction time per buyer (don’t use min/max; assume there
+were more transactions per buyer in the table)
+
+```sql
+SELECT
+    t.buyer_id,
+    t.purchase_time AS second_transaction_time
+FROM
+    (SELECT
+        buyer_id,
+        purchase_time,
+        RANK() OVER (PARTITION BY buyer_id ORDER BY purchase_time ASC) AS purchase_rank
+    FROM
+        transactions) t
+WHERE
+    t.purchase_rank = 2;
+```
+
+
